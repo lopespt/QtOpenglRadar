@@ -45,17 +45,21 @@ OBJECTS_DIR   = release/
 ####### Files
 
 SOURCES       = src/Airplane.cpp \
+		src/Angle.cpp \
 		src/ObjectInformation.cpp \
 		src/QtOpenglRadar.cpp \
 		src/Radar.cpp \
 		src/RadarIconEngine.cpp \
-		src/RadarObject.cpp release/moc_Radar.cpp
+		src/RadarObject.cpp release/moc_Airplane.cpp \
+		release/moc_Radar.cpp
 OBJECTS       = release/Airplane.o \
+		release/Angle.o \
 		release/ObjectInformation.o \
 		release/QtOpenglRadar.o \
 		release/Radar.o \
 		release/RadarIconEngine.o \
 		release/RadarObject.o \
+		release/moc_Airplane.o \
 		release/moc_Radar.o
 DIST          = ../../../Qt5.3.0/5.3/clang_64/mkspecs/features/spec_pre.prf \
 		../../../Qt5.3.0/5.3/clang_64/mkspecs/qdevice.pri \
@@ -172,6 +176,7 @@ DIST          = ../../../Qt5.3.0/5.3/clang_64/mkspecs/features/spec_pre.prf \
 		../../../Qt5.3.0/5.3/clang_64/mkspecs/features/yacc.prf \
 		../../../Qt5.3.0/5.3/clang_64/mkspecs/features/lex.prf \
 		QtOpenglRadar.pro src/Airplane.cpp \
+		src/Angle.cpp \
 		src/ObjectInformation.cpp \
 		src/QtOpenglRadar.cpp \
 		src/Radar.cpp \
@@ -243,7 +248,7 @@ QtOpenglRadar.app/Contents/Resources/QtOpenGlRadar.icns: QtOpenGlRadar.icns
 	@$(COPY_FILE) QtOpenGlRadar.icns QtOpenglRadar.app/Contents/Resources/QtOpenGlRadar.icns
 dist: 
 	@test -d release/QtOpenglRadar1.0.0 || mkdir -p release/QtOpenglRadar1.0.0
-	$(COPY_FILE) --parents $(DIST) release/QtOpenglRadar1.0.0/ && $(COPY_FILE) --parents src/Airplane.h src/ObjectInformation.h src/Radar.h src/RadarIconEngine.h src/RadarObject.h release/QtOpenglRadar1.0.0/ && $(COPY_FILE) --parents src/Airplane.cpp src/ObjectInformation.cpp src/QtOpenglRadar.cpp src/Radar.cpp src/RadarIconEngine.cpp src/RadarObject.cpp release/QtOpenglRadar1.0.0/ && (cd `dirname release/QtOpenglRadar1.0.0` && $(TAR) QtOpenglRadar1.0.0.tar QtOpenglRadar1.0.0 && $(COMPRESS) QtOpenglRadar1.0.0.tar) && $(MOVE) `dirname release/QtOpenglRadar1.0.0`/QtOpenglRadar1.0.0.tar.gz . && $(DEL_FILE) -r release/QtOpenglRadar1.0.0
+	$(COPY_FILE) --parents $(DIST) release/QtOpenglRadar1.0.0/ && $(COPY_FILE) --parents src/Airplane.h src/Angle.h src/ObjectInformation.h src/Radar.h src/RadarIconEngine.h src/RadarObject.h release/QtOpenglRadar1.0.0/ && $(COPY_FILE) --parents src/Airplane.cpp src/Angle.cpp src/ObjectInformation.cpp src/QtOpenglRadar.cpp src/Radar.cpp src/RadarIconEngine.cpp src/RadarObject.cpp release/QtOpenglRadar1.0.0/ && (cd `dirname release/QtOpenglRadar1.0.0` && $(TAR) QtOpenglRadar1.0.0.tar QtOpenglRadar1.0.0 && $(COMPRESS) QtOpenglRadar1.0.0.tar) && $(MOVE) `dirname release/QtOpenglRadar1.0.0`/QtOpenglRadar1.0.0.tar.gz . && $(DEL_FILE) -r release/QtOpenglRadar1.0.0
 
 
 clean:compiler_clean 
@@ -268,9 +273,22 @@ compiler_objective_c_make_all:
 compiler_objective_c_clean:
 compiler_rcc_make_all:
 compiler_rcc_clean:
-compiler_moc_header_make_all: release/moc_Radar.cpp
+compiler_moc_header_make_all: release/moc_Airplane.cpp release/moc_Radar.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) release/moc_Radar.cpp
+	-$(DEL_FILE) release/moc_Airplane.cpp release/moc_Radar.cpp
+release/moc_Airplane.cpp: src/RadarObject.h \
+		../../../Qt5.3.0/5.3/clang_64/lib/QtOpenGL.framework/Versions/5/Headers/QGLWidget \
+		../../../Qt5.3.0/5.3/clang_64/lib/QtOpenGL.framework/Versions/5/Headers/qgl.h \
+		../../../Qt5.3.0/5.3/clang_64/lib/QtCore.framework/Versions/5/Headers/qmath.h \
+		src/ObjectInformation.h \
+		src/Angle.h \
+		../../../Qt5.3.0/5.3/clang_64/lib/QtCore.framework/Versions/5/Headers/QTimer \
+		../../../Qt5.3.0/5.3/clang_64/lib/QtCore.framework/Versions/5/Headers/qtimer.h \
+		../../../Qt5.3.0/5.3/clang_64/lib/QtCore.framework/Versions/5/Headers/QObject \
+		../../../Qt5.3.0/5.3/clang_64/lib/QtCore.framework/Versions/5/Headers/qobject.h \
+		src/Airplane.h
+	/Users/wachs/Qt5.3.0/5.3/clang_64/bin/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -I/Users/wachs/Qt5.3.0/5.3/clang_64/mkspecs/macx-clang -I/Users/wachs/Dropbox/eclipse/QtOpenglRadar -I/Users/wachs/Dropbox/eclipse/QtOpenglRadar -I/Users/wachs/Dropbox/eclipse/QtOpenglRadar/src -I/Users/wachs/Qt5.3.0/5.3/clang_64/lib/QtOpenGL.framework/Headers -I/Users/wachs/Qt5.3.0/5.3/clang_64/lib/QtWidgets.framework/Headers -I/Users/wachs/Qt5.3.0/5.3/clang_64/lib/QtGui.framework/Headers -I/Users/wachs/Qt5.3.0/5.3/clang_64/lib/QtCore.framework/Headers -F/Users/wachs/Qt5.3.0/5.3/clang_64/lib src/Airplane.h -o release/moc_Airplane.cpp
+
 release/moc_Radar.cpp: ../../../Qt5.3.0/5.3/clang_64/lib/QtOpenGL.framework/Versions/5/Headers/QGLWidget \
 		../../../Qt5.3.0/5.3/clang_64/lib/QtOpenGL.framework/Versions/5/Headers/qgl.h \
 		../../../Qt5.3.0/5.3/clang_64/lib/QtCore.framework/Versions/5/Headers/qmath.h \
@@ -281,6 +299,7 @@ release/moc_Radar.cpp: ../../../Qt5.3.0/5.3/clang_64/lib/QtOpenGL.framework/Vers
 		src/Airplane.h \
 		src/RadarObject.h \
 		src/ObjectInformation.h \
+		src/Angle.h \
 		src/Radar.h
 	/Users/wachs/Qt5.3.0/5.3/clang_64/bin/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -I/Users/wachs/Qt5.3.0/5.3/clang_64/mkspecs/macx-clang -I/Users/wachs/Dropbox/eclipse/QtOpenglRadar -I/Users/wachs/Dropbox/eclipse/QtOpenglRadar -I/Users/wachs/Dropbox/eclipse/QtOpenglRadar/src -I/Users/wachs/Qt5.3.0/5.3/clang_64/lib/QtOpenGL.framework/Headers -I/Users/wachs/Qt5.3.0/5.3/clang_64/lib/QtWidgets.framework/Headers -I/Users/wachs/Qt5.3.0/5.3/clang_64/lib/QtGui.framework/Headers -I/Users/wachs/Qt5.3.0/5.3/clang_64/lib/QtCore.framework/Headers -F/Users/wachs/Qt5.3.0/5.3/clang_64/lib src/Radar.h -o release/moc_Radar.cpp
 
@@ -305,8 +324,16 @@ release/Airplane.o: src/Airplane.cpp src/Airplane.h \
 		../../../Qt5.3.0/5.3/clang_64/lib/QtOpenGL.framework/Versions/5/Headers/QGLWidget \
 		../../../Qt5.3.0/5.3/clang_64/lib/QtOpenGL.framework/Versions/5/Headers/qgl.h \
 		../../../Qt5.3.0/5.3/clang_64/lib/QtCore.framework/Versions/5/Headers/qmath.h \
-		src/ObjectInformation.h
+		src/ObjectInformation.h \
+		src/Angle.h \
+		../../../Qt5.3.0/5.3/clang_64/lib/QtCore.framework/Versions/5/Headers/QTimer \
+		../../../Qt5.3.0/5.3/clang_64/lib/QtCore.framework/Versions/5/Headers/qtimer.h \
+		../../../Qt5.3.0/5.3/clang_64/lib/QtCore.framework/Versions/5/Headers/QObject \
+		../../../Qt5.3.0/5.3/clang_64/lib/QtCore.framework/Versions/5/Headers/qobject.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release/Airplane.o src/Airplane.cpp
+
+release/Angle.o: src/Angle.cpp src/Angle.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release/Angle.o src/Angle.cpp
 
 release/ObjectInformation.o: src/ObjectInformation.cpp src/ObjectInformation.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release/ObjectInformation.o src/ObjectInformation.cpp
@@ -322,6 +349,7 @@ release/QtOpenglRadar.o: src/QtOpenglRadar.cpp src/Radar.h \
 		src/Airplane.h \
 		src/RadarObject.h \
 		src/ObjectInformation.h \
+		src/Angle.h \
 		../../../Qt5.3.0/5.3/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QApplication \
 		../../../Qt5.3.0/5.3/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qapplication.h \
 		../../../Qt5.3.0/5.3/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QSystemTrayIcon \
@@ -345,7 +373,8 @@ release/Radar.o: src/Radar.cpp src/Radar.h \
 		../../../Qt5.3.0/5.3/clang_64/lib/QtCore.framework/Versions/5/Headers/qobject.h \
 		src/Airplane.h \
 		src/RadarObject.h \
-		src/ObjectInformation.h
+		src/ObjectInformation.h \
+		src/Angle.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release/Radar.o src/Radar.cpp
 
 release/RadarIconEngine.o: src/RadarIconEngine.cpp src/RadarIconEngine.h \
@@ -359,8 +388,12 @@ release/RadarObject.o: src/RadarObject.cpp src/RadarObject.h \
 		../../../Qt5.3.0/5.3/clang_64/lib/QtOpenGL.framework/Versions/5/Headers/QGLWidget \
 		../../../Qt5.3.0/5.3/clang_64/lib/QtOpenGL.framework/Versions/5/Headers/qgl.h \
 		../../../Qt5.3.0/5.3/clang_64/lib/QtCore.framework/Versions/5/Headers/qmath.h \
-		src/ObjectInformation.h
+		src/ObjectInformation.h \
+		src/Angle.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release/RadarObject.o src/RadarObject.cpp
+
+release/moc_Airplane.o: release/moc_Airplane.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release/moc_Airplane.o release/moc_Airplane.cpp
 
 release/moc_Radar.o: release/moc_Radar.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release/moc_Radar.o release/moc_Radar.cpp

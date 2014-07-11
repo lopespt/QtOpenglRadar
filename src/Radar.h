@@ -12,6 +12,8 @@
 #include <QTimer>
 #include <QObject>
 #include "Airplane.h"
+#include <glut/glut.h>
+#include "Angle.h"
 
 class Radar: public QGLWidget {
 	Q_OBJECT
@@ -24,10 +26,11 @@ public:
 private:
 	void drawCenteredCircle(GLfloat radius);
 	void drawRadarLine(float angle);
+	void drawRadials();
 	QTimer timer;
 	float radarAngle;
 	float radarMax;
-	Airplane a,b,c;
+	Airplane a, b, c;
 	float posx;
 };
 

@@ -8,11 +8,11 @@
 #include "Radar.h"
 
 Radar::Radar() :
-		timer(this), radarAngle(0), radarMax(0), a(-0.2, 0.3), b(-0.5, 0.9), c(
-				-0.45, 0.7) {
+		timer(this), radarAngle(135), radarMax(0), a(0.25, 0.25), b(-0.5, 0.5), c(
+				-0.45, -0.7) {
 
 	QObject::connect(&timer, SIGNAL(timeout()), this, SLOT(updateGL()));
-	timer.start(20);
+	timer.start(10);
 	posx = 0;
 }
 
@@ -36,7 +36,7 @@ void Radar::resizeGL(int w, int h) {
 	glOrtho(-w / side, w / side, -h / side, h / side, 0, 1);
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-	glRotatef(90, 0, 0, 1);
+	//glRotatef(90, 0, 0, 1);
 	//glRotatef(45, 0, 1, 0);
 	//glRotatef(45, 1, 0, 0);
 
@@ -52,18 +52,19 @@ void Radar::paintGL() {
 	drawCenteredCircle(1.5);
 
 	drawRadarLine(radarAngle);
-	a.drawOnScope(360 - radarAngle);
-	b.drawOnScope(360 - radarAngle);
-	c.drawOnScope(360 - radarAngle);
+	a.drawOnScope(radarAngle);
+	b.drawOnScope(radarAngle);
+	c.drawOnScope(radarAngle);
 
-	radarAngle = (radarAngle + 0.5);
-	if (radarAngle >= 360)
-		radarAngle = radarAngle - 360;
+	radarAngle = (radarAngle - 0.25);
+	if (radarAngle <= 0)
+		radarAngle = radarAngle + 360;
 
-	a.setX(posx = -0.001);
+	//a.setX(posx = -0.001);
 
 	//printf("%f\n", 360 - radarAngle);
 	//fflush(stdout);
+	drawRadials();
 
 	glPopMatrix();
 
@@ -82,28 +83,64 @@ void Radar::drawCenteredCircle(GLfloat radius) {
 
 void Radar::drawRadarLine(float angle) {
 
+	angle = 360 - angle + 90;
 	glBegin(GL_POLYGON);
 
 	float x = qCos(qDegreesToRadians(angle)) * radarMax;
 	float y = qSin(qDegreesToRadians(angle)) * radarMax;
-	glColor4f(0.5, 1, 0.5, 0.0);
+	glColor4f(0.5, 1, 0.5, 0);
 	glVertex2f(0, 0);
 
 	glColor4f(0.5, 1, 0.5, 0.2);
 	glVertex2f(x, y);
 
-	for (int i = 1; i < 350; i++) {
-		x = qCos(qDegreesToRadians(angle - i)) * radarMax;
-		y = qSin(qDegreesToRadians(angle - i)) * radarMax;
-		glColor4f(0.5, 1, 0.5, 0.175 - 0.175 / 270. * i);
+	for (int i = 350; i > 2; i--) {
+		x = qCos(qDegreesToRadians(angle + i)) * radarMax;
+		y = qSin(qDegreesToRadians(angle + i)) * radarMax;
+		glColor4f(0.5, 1, 0.5, i / 350. * 0.2);
 		glVertex2f(x, y);
 	}
+	glEnd();
 
-	glBegin(GL_LINE_STRIP);
+	glBegin(GL_LINES);
 	x = qCos(qDegreesToRadians(angle)) * radarMax;
 	y = qSin(qDegreesToRadians(angle)) * radarMax;
 	glColor4f(0, 1, 0, 1);
 	glVertex2f(0, 0);
 	glVertex2f(x, y);
 	glEnd();
+}
+
+void Radar::drawRadials() {
+
+	char txt[5];
+	glPushMatrix();
+	glRotatef(90, 0, 0, 1);
+	glColor4f(0, 1, 0, 0.1);
+	for (int i = 0; i < 8; i++) {
+		sprintf(txt, "%i", 360 - 360 / 8 * i);
+		glBegin(GL_LINES);
+		glVertex2f(0, 0);
+		glVertex2f(1.5, 0);
+		glEnd();
+
+		glPushMatrix();
+
+		if (i > 0 && i < 6) {
+			glTranslatef(0.75, 0.03, 0);
+			glRotatef(180, 0, 0, 1);
+		} else {
+			glTranslatef(0.75, -0.03, 0);
+		}
+		glScaled(0.0005, 0.0005, 0);
+
+		for (int c = 0; c < strlen(txt); c++)
+			glutStrokeCharacter(GLUT_STROKE_MONO_ROMAN, txt[c]);
+		glPopMatrix();
+
+		glRotatef(360 / 8, 0, 0, 1);
+	}
+
+	glPopMatrix();
+
 }

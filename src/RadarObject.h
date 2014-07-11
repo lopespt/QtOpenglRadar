@@ -11,17 +11,21 @@
 #include <QGLWidget>
 #include <qmath.h>
 #include "ObjectInformation.h"
+#include <glut/glut.h>
+#include "Angle.h"
 
 class RadarObject {
 protected:
 	ObjectInformation information;
 protected:
 	RadarObject();
+	virtual void drawLabels();
 public:
 	virtual ~RadarObject();
 	ObjectInformation getObjectInformation();
 	void drawOnScope(float scopeAngle);
 	virtual void draw()=0;
+	Angle getRadial();
 
 };
 

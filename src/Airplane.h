@@ -11,13 +11,33 @@
 #include "RadarObject.h"
 #include <QGLWidget>
 #include <glut/glut.h>
+#include "Angle.h"
+#include <qmath.h>
+#include <QTimer>
+#include <QObject>
 
-class Airplane: public RadarObject {
+class Airplane: public QObject, public RadarObject {
+Q_OBJECT
 public:
 	Airplane(float x = 0, float y = 0);
 	virtual ~Airplane();
-	void setX(float x);
 	virtual void draw();
+
+private:
+	const float timeStep = 100;
+	float speed;
+	float toSpeeding;
+
+	float altitude;
+	float toAltitude;
+
+	Angle heading;
+	Angle toHeading;
+
+	QTimer timer;
+
+private slots:
+	void computePosition();
 
 };
 

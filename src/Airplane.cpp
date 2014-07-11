@@ -7,21 +7,24 @@
 
 #include "Airplane.h"
 
-Airplane::Airplane(float x, float y) {
+Airplane::Airplane(float x, float y) :
+		timer() {
+
 	information.setX(x);
 	information.setY(y);
 	information.setZ(0.5);
 	information.setDx(0);
 	information.setDy(0);
 	information.setDz(0);
+	speed = 0.001;
+	heading = 270;
+
+	QObject::connect(&timer, SIGNAL(timeout()), this, SLOT(computePosition()));
+	timer.start(timeStep);
 }
 
 Airplane::~Airplane() {
-	// TODO Auto-generated destructor stub
-}
 
-void Airplane::setX(float x) {
-	information.setX(x);
 }
 
 void Airplane::draw() {
@@ -32,16 +35,24 @@ void Airplane::draw() {
 	glVertex2f(0.01, -0.01);
 	glEnd();
 
-	char txt[][20] = { "TAM3651 18 180", "R18 -" };
+	glBegin(GL_LINES);
+	glVertex2f(0, 0);
+	glVertex2f(0, 0.05);
+	glEnd();
 
-	for (int t = 0; t < 2; t++) {
-		glPushMatrix();
-		glTranslatef(0.01, 0.03 - 0.015 * t, 0);
-		glScalef(0.0001, 0.0001, 0);
-		int l = strlen(txt[t]);
-		for (int i = 0; i < l; i++)
-			glutStrokeCharacter(GLUT_STROKE_MONO_ROMAN, txt[t][i]);
-		glPopMatrix();
-	}
+	textInfo txt;
+	strcpy(txt.texts[0], "TAM3651 18 180");
+	strcpy(txt.texts[1], "R18 -");
+	information.setText(txt);
+
+}
+
+void Airplane::computePosition() {
+
+	float sx = qCos(heading.getGLAngle()) * speed;
+	float sy = qSin(heading.getGLAngle()) * speed;
+
+	information.setX(information.getX() + sx);
+	information.setY(information.getY() + sy);
 
 }
