@@ -51,7 +51,8 @@ SOURCES       = src/Airplane.cpp \
 		src/Radar.cpp \
 		src/RadarIconEngine.cpp \
 		src/RadarObject.cpp release/moc_Airplane.cpp \
-		release/moc_Radar.cpp
+		release/moc_Radar.cpp \
+		release/moc_RadarObject.cpp
 OBJECTS       = release/Airplane.o \
 		release/Angle.o \
 		release/ObjectInformation.o \
@@ -60,7 +61,8 @@ OBJECTS       = release/Airplane.o \
 		release/RadarIconEngine.o \
 		release/RadarObject.o \
 		release/moc_Airplane.o \
-		release/moc_Radar.o
+		release/moc_Radar.o \
+		release/moc_RadarObject.o
 DIST          = ../../../Qt5.3.0/5.3/clang_64/mkspecs/features/spec_pre.prf \
 		../../../Qt5.3.0/5.3/clang_64/mkspecs/qdevice.pri \
 		../../../Qt5.3.0/5.3/clang_64/mkspecs/features/device_config.prf \
@@ -273,19 +275,19 @@ compiler_objective_c_make_all:
 compiler_objective_c_clean:
 compiler_rcc_make_all:
 compiler_rcc_clean:
-compiler_moc_header_make_all: release/moc_Airplane.cpp release/moc_Radar.cpp
+compiler_moc_header_make_all: release/moc_Airplane.cpp release/moc_Radar.cpp release/moc_RadarObject.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) release/moc_Airplane.cpp release/moc_Radar.cpp
+	-$(DEL_FILE) release/moc_Airplane.cpp release/moc_Radar.cpp release/moc_RadarObject.cpp
 release/moc_Airplane.cpp: src/RadarObject.h \
 		../../../Qt5.3.0/5.3/clang_64/lib/QtOpenGL.framework/Versions/5/Headers/QGLWidget \
 		../../../Qt5.3.0/5.3/clang_64/lib/QtOpenGL.framework/Versions/5/Headers/qgl.h \
 		../../../Qt5.3.0/5.3/clang_64/lib/QtCore.framework/Versions/5/Headers/qmath.h \
 		src/ObjectInformation.h \
 		src/Angle.h \
-		../../../Qt5.3.0/5.3/clang_64/lib/QtCore.framework/Versions/5/Headers/QTimer \
-		../../../Qt5.3.0/5.3/clang_64/lib/QtCore.framework/Versions/5/Headers/qtimer.h \
 		../../../Qt5.3.0/5.3/clang_64/lib/QtCore.framework/Versions/5/Headers/QObject \
 		../../../Qt5.3.0/5.3/clang_64/lib/QtCore.framework/Versions/5/Headers/qobject.h \
+		../../../Qt5.3.0/5.3/clang_64/lib/QtCore.framework/Versions/5/Headers/QTimer \
+		../../../Qt5.3.0/5.3/clang_64/lib/QtCore.framework/Versions/5/Headers/qtimer.h \
 		src/Airplane.h
 	/Users/wachs/Qt5.3.0/5.3/clang_64/bin/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -I/Users/wachs/Qt5.3.0/5.3/clang_64/mkspecs/macx-clang -I/Users/wachs/Dropbox/eclipse/QtOpenglRadar -I/Users/wachs/Dropbox/eclipse/QtOpenglRadar -I/Users/wachs/Dropbox/eclipse/QtOpenglRadar/src -I/Users/wachs/Qt5.3.0/5.3/clang_64/lib/QtOpenGL.framework/Headers -I/Users/wachs/Qt5.3.0/5.3/clang_64/lib/QtWidgets.framework/Headers -I/Users/wachs/Qt5.3.0/5.3/clang_64/lib/QtGui.framework/Headers -I/Users/wachs/Qt5.3.0/5.3/clang_64/lib/QtCore.framework/Headers -F/Users/wachs/Qt5.3.0/5.3/clang_64/lib src/Airplane.h -o release/moc_Airplane.cpp
 
@@ -302,6 +304,18 @@ release/moc_Radar.cpp: ../../../Qt5.3.0/5.3/clang_64/lib/QtOpenGL.framework/Vers
 		src/Angle.h \
 		src/Radar.h
 	/Users/wachs/Qt5.3.0/5.3/clang_64/bin/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -I/Users/wachs/Qt5.3.0/5.3/clang_64/mkspecs/macx-clang -I/Users/wachs/Dropbox/eclipse/QtOpenglRadar -I/Users/wachs/Dropbox/eclipse/QtOpenglRadar -I/Users/wachs/Dropbox/eclipse/QtOpenglRadar/src -I/Users/wachs/Qt5.3.0/5.3/clang_64/lib/QtOpenGL.framework/Headers -I/Users/wachs/Qt5.3.0/5.3/clang_64/lib/QtWidgets.framework/Headers -I/Users/wachs/Qt5.3.0/5.3/clang_64/lib/QtGui.framework/Headers -I/Users/wachs/Qt5.3.0/5.3/clang_64/lib/QtCore.framework/Headers -F/Users/wachs/Qt5.3.0/5.3/clang_64/lib src/Radar.h -o release/moc_Radar.cpp
+
+release/moc_RadarObject.cpp: ../../../Qt5.3.0/5.3/clang_64/lib/QtOpenGL.framework/Versions/5/Headers/QGLWidget \
+		../../../Qt5.3.0/5.3/clang_64/lib/QtOpenGL.framework/Versions/5/Headers/qgl.h \
+		../../../Qt5.3.0/5.3/clang_64/lib/QtCore.framework/Versions/5/Headers/qmath.h \
+		src/ObjectInformation.h \
+		src/Angle.h \
+		../../../Qt5.3.0/5.3/clang_64/lib/QtCore.framework/Versions/5/Headers/QObject \
+		../../../Qt5.3.0/5.3/clang_64/lib/QtCore.framework/Versions/5/Headers/qobject.h \
+		../../../Qt5.3.0/5.3/clang_64/lib/QtCore.framework/Versions/5/Headers/QTimer \
+		../../../Qt5.3.0/5.3/clang_64/lib/QtCore.framework/Versions/5/Headers/qtimer.h \
+		src/RadarObject.h
+	/Users/wachs/Qt5.3.0/5.3/clang_64/bin/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -I/Users/wachs/Qt5.3.0/5.3/clang_64/mkspecs/macx-clang -I/Users/wachs/Dropbox/eclipse/QtOpenglRadar -I/Users/wachs/Dropbox/eclipse/QtOpenglRadar -I/Users/wachs/Dropbox/eclipse/QtOpenglRadar/src -I/Users/wachs/Qt5.3.0/5.3/clang_64/lib/QtOpenGL.framework/Headers -I/Users/wachs/Qt5.3.0/5.3/clang_64/lib/QtWidgets.framework/Headers -I/Users/wachs/Qt5.3.0/5.3/clang_64/lib/QtGui.framework/Headers -I/Users/wachs/Qt5.3.0/5.3/clang_64/lib/QtCore.framework/Headers -F/Users/wachs/Qt5.3.0/5.3/clang_64/lib src/RadarObject.h -o release/moc_RadarObject.cpp
 
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
@@ -326,16 +340,17 @@ release/Airplane.o: src/Airplane.cpp src/Airplane.h \
 		../../../Qt5.3.0/5.3/clang_64/lib/QtCore.framework/Versions/5/Headers/qmath.h \
 		src/ObjectInformation.h \
 		src/Angle.h \
-		../../../Qt5.3.0/5.3/clang_64/lib/QtCore.framework/Versions/5/Headers/QTimer \
-		../../../Qt5.3.0/5.3/clang_64/lib/QtCore.framework/Versions/5/Headers/qtimer.h \
 		../../../Qt5.3.0/5.3/clang_64/lib/QtCore.framework/Versions/5/Headers/QObject \
-		../../../Qt5.3.0/5.3/clang_64/lib/QtCore.framework/Versions/5/Headers/qobject.h
+		../../../Qt5.3.0/5.3/clang_64/lib/QtCore.framework/Versions/5/Headers/qobject.h \
+		../../../Qt5.3.0/5.3/clang_64/lib/QtCore.framework/Versions/5/Headers/QTimer \
+		../../../Qt5.3.0/5.3/clang_64/lib/QtCore.framework/Versions/5/Headers/qtimer.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release/Airplane.o src/Airplane.cpp
 
 release/Angle.o: src/Angle.cpp src/Angle.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release/Angle.o src/Angle.cpp
 
-release/ObjectInformation.o: src/ObjectInformation.cpp src/ObjectInformation.h
+release/ObjectInformation.o: src/ObjectInformation.cpp src/ObjectInformation.h \
+		src/Angle.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release/ObjectInformation.o src/ObjectInformation.cpp
 
 release/QtOpenglRadar.o: src/QtOpenglRadar.cpp src/Radar.h \
@@ -389,7 +404,11 @@ release/RadarObject.o: src/RadarObject.cpp src/RadarObject.h \
 		../../../Qt5.3.0/5.3/clang_64/lib/QtOpenGL.framework/Versions/5/Headers/qgl.h \
 		../../../Qt5.3.0/5.3/clang_64/lib/QtCore.framework/Versions/5/Headers/qmath.h \
 		src/ObjectInformation.h \
-		src/Angle.h
+		src/Angle.h \
+		../../../Qt5.3.0/5.3/clang_64/lib/QtCore.framework/Versions/5/Headers/QObject \
+		../../../Qt5.3.0/5.3/clang_64/lib/QtCore.framework/Versions/5/Headers/qobject.h \
+		../../../Qt5.3.0/5.3/clang_64/lib/QtCore.framework/Versions/5/Headers/QTimer \
+		../../../Qt5.3.0/5.3/clang_64/lib/QtCore.framework/Versions/5/Headers/qtimer.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release/RadarObject.o src/RadarObject.cpp
 
 release/moc_Airplane.o: release/moc_Airplane.cpp 
@@ -397,6 +416,9 @@ release/moc_Airplane.o: release/moc_Airplane.cpp
 
 release/moc_Radar.o: release/moc_Radar.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release/moc_Radar.o release/moc_Radar.cpp
+
+release/moc_RadarObject.o: release/moc_RadarObject.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release/moc_RadarObject.o release/moc_RadarObject.cpp
 
 ####### Install
 

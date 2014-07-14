@@ -87,7 +87,7 @@ float Angle::getAngle() {
 }
 
 float Angle::getGLAngle() {
-	return Angle(angle - 90).getAngle();
+	return Angle(360 - angle + 90).angle;
 }
 
 Angle Angle::sumAngle(float a) {

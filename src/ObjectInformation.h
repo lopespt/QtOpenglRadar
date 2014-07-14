@@ -8,6 +8,8 @@
 #ifndef OBJECTINFORMATION_H_
 #define OBJECTINFORMATION_H_
 
+#include "Angle.h"
+
 typedef struct {
 	char texts[4][8];
 } textInfo;
@@ -16,35 +18,19 @@ class ObjectInformation {
 
 private:
 	float x, y, z;
-	float dx, dy, dz;
+	Angle angle;
 	textInfo text;
 
 public:
 	ObjectInformation();
 	virtual ~ObjectInformation();
 
-	float getDx() const {
-		return dx;
+	Angle getAngle() const {
+		return angle;
 	}
 
-	void setDx(float dx) {
-		this->dx = dx;
-	}
-
-	float getDy() const {
-		return dy;
-	}
-
-	void setDy(float dy) {
-		this->dy = dy;
-	}
-
-	float getDz() const {
-		return dz;
-	}
-
-	void setDz(float dz) {
-		this->dz = dz;
+	void setAngle(const Angle& a) {
+		this->angle = a;
 	}
 
 	float getX() const {
@@ -78,7 +64,6 @@ public:
 	void setText(const textInfo& text) {
 		this->text = text;
 	}
-
 
 };
 

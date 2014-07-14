@@ -56,7 +56,7 @@ void Radar::paintGL() {
 	b.drawOnScope(radarAngle);
 	c.drawOnScope(radarAngle);
 
-	radarAngle = (radarAngle - 0.25);
+	radarAngle = (radarAngle - 0.5);
 	if (radarAngle <= 0)
 		radarAngle = radarAngle + 360;
 

@@ -16,13 +16,13 @@
 #include <QTimer>
 #include <QObject>
 
-class Airplane: public QObject, public RadarObject {
+class Airplane: public RadarObject {
 Q_OBJECT
 public:
 	Airplane(float x = 0, float y = 0);
 	virtual ~Airplane();
 	virtual void draw();
-
+	virtual void updatePosition(milisecs timeSlice);
 private:
 	const float timeStep = 100;
 	float speed;
@@ -35,6 +35,7 @@ private:
 	Angle toHeading;
 
 	QTimer timer;
+	float x, y, z;
 
 private slots:
 	void computePosition();

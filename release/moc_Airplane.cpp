@@ -72,7 +72,7 @@ void Airplane::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, vo
 }
 
 const QMetaObject Airplane::staticMetaObject = {
-    { &QObject::staticMetaObject, qt_meta_stringdata_Airplane.data,
+    { &RadarObject::staticMetaObject, qt_meta_stringdata_Airplane.data,
       qt_meta_data_Airplane,  qt_static_metacall, 0, 0}
 };
 
@@ -87,14 +87,12 @@ void *Airplane::qt_metacast(const char *_clname)
     if (!_clname) return 0;
     if (!strcmp(_clname, qt_meta_stringdata_Airplane.stringdata))
         return static_cast<void*>(const_cast< Airplane*>(this));
-    if (!strcmp(_clname, "RadarObject"))
-        return static_cast< RadarObject*>(const_cast< Airplane*>(this));
-    return QObject::qt_metacast(_clname);
+    return RadarObject::qt_metacast(_clname);
 }
 
 int Airplane::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 {
-    _id = QObject::qt_metacall(_c, _id, _a);
+    _id = RadarObject::qt_metacall(_c, _id, _a);
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {

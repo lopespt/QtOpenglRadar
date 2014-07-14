@@ -10,14 +10,15 @@
 Airplane::Airplane(float x, float y) :
 		timer() {
 
-	information.setX(x);
-	information.setY(y);
-	information.setZ(0.5);
-	information.setDx(0);
-	information.setDy(0);
-	information.setDz(0);
+	currentInformation.setX(x);
+	currentInformation.setY(y);
+	currentInformation.setZ(0.5);
+	this->x = x;
+	this->y = y;
+
 	speed = 0.001;
-	heading = 270;
+	heading = 335;
+	currentInformation.setAngle(heading);
 
 	QObject::connect(&timer, SIGNAL(timeout()), this, SLOT(computePosition()));
 	timer.start(timeStep);
@@ -37,22 +38,27 @@ void Airplane::draw() {
 
 	glBegin(GL_LINES);
 	glVertex2f(0, 0);
-	glVertex2f(0, 0.05);
+	glVertex2f(0.05, 0);
 	glEnd();
 
 	textInfo txt;
 	strcpy(txt.texts[0], "TAM3651 18 180");
 	strcpy(txt.texts[1], "R18 -");
-	information.setText(txt);
+	currentInformation.setText(txt);
 
 }
 
 void Airplane::computePosition() {
 
-	float sx = qCos(heading.getGLAngle()) * speed;
-	float sy = qSin(heading.getGLAngle()) * speed;
+	float sx = qCos(qDegreesToRadians(heading.getGLAngle())) * speed;
+	float sy = qSin(qDegreesToRadians(heading.getGLAngle())) * speed;
 
-	information.setX(information.getX() + sx);
-	information.setY(information.getY() + sy);
+	x += sx;
+	y += sy;
 
+}
+
+void Airplane::updatePosition(milisecs timeSlice) {
+	currentInformation.setX(x);
+	currentInformation.setY(y);
 }
