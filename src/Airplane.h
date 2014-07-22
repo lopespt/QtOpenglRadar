@@ -23,6 +23,55 @@ public:
 	virtual ~Airplane();
 	virtual void draw();
 	virtual void updatePosition(milisecs timeSlice);
+
+	float getAltitude() const {
+		return altitude;
+	}
+
+	void setAltitude(float altitude) {
+		this->altitude = altitude;
+	}
+
+	const Angle& getHeading() const {
+		return heading;
+	}
+
+	void setHeading(const Angle& heading) {
+		this->heading = heading;
+	}
+
+	float getSpeed() const {
+		return speed;
+	}
+
+	void setSpeed(float speed) {
+		this->speed = speed;
+	}
+
+	float getToAltitude() const {
+		return toAltitude;
+	}
+
+	void setToAltitude(float toAltitude) {
+		this->toAltitude = toAltitude;
+	}
+
+	const Angle& getToHeading() const {
+		return toHeading;
+	}
+
+	void setToHeading(const Angle& toHeading) {
+		this->toHeading = toHeading;
+	}
+
+	float getToSpeeding() const {
+		return toSpeeding;
+	}
+
+	void setToSpeeding(float toSpeeding) {
+		this->toSpeeding = toSpeeding;
+	}
+
 private:
 	const float timeStep = 100;
 	float speed;

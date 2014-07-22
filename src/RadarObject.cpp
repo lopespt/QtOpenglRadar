@@ -34,7 +34,7 @@ void RadarObject::drawOnScope(float scopeAngle) {
 	float diff = (sc - pos).getAngle();
 	alpha = diff / 270;
 	alpha = alpha > 1 ? 1 : alpha;
-	if (diff <= 1)
+	if (diff <= 2)
 		lastInformation = currentInformation;
 
 	glColor4f(0, 0.9, 0, alpha);
